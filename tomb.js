@@ -40,6 +40,7 @@ function start (){
     createLanding();
     createTorches();
     addWater();
+    setupPopUp();
     addPopUp('Press T to interact with the sarcophagus',-24, 5,21);
 
     //setup callbacks
@@ -152,7 +153,7 @@ function renderFrame(){
 
     //if water is rising rise water
     if(waterRising){
-        addPopUp('Quick!get to the stairs before you drown',-24, 5,21);
+        addPopUp('Quick!get to the top of the stairs before you drown',model.position.x, model.position.y+10,model.position.z);
         riseWater();
         checkWinLose();
     }
@@ -231,9 +232,9 @@ function checkWinLose(){
     let y = water.position.y;
     if(y>9.75){
         if(model.position.y>4){
-            console.log('win');    
+            addPopUp('Congratulations, you won!',model.position.x, model.position.y+10,model.position.z);  
         }else{
-            console.log('fail');
+            addPopUp('Better luck next time',model.position.x, model.position.y+10,model.position.z);
         }
         waterRising = false;
     }
@@ -262,8 +263,19 @@ function riseWater(){
     water.position.set(0,y,0);
 }
 
+//setup pop up messages
+function setupPopUp(){
+    theMessage = document.createElement('div');
+    theMessage.className = 'label';
+    theMessage.textContent = 'welcome';
+    popupMessage = new CSS2DObject(theMessage);
+    popupMessage.position.set(0,0,0);
+    scene.add(popupMessage);
+}
+
 //add popup messages
 function addPopUp(message,x,y,z){
+    scene.remove(popupMessage);
     theMessage = document.createElement('div');
     theMessage.className = 'label';
     theMessage.textContent = message;
@@ -661,7 +673,7 @@ function createWalls(){
 //create ball
 function createBall(){
     //ball dimensions
-    let pos = {x: 0, y: 4, z: 0};
+    let pos = {x: 0, y: 4, z: -5};
     let radius = 2;
     let quat = {x: 0, y: 0, z: 0, w: 1};
     let mass = 1;
@@ -711,7 +723,7 @@ function createBall(){
 function loadCharacter(){
     //character dimesnions
     let s = 5; 
-    let pos = {x: 0, y: 1, z: 0};
+    let pos = {x: 0, y: 1, z: -5};
     let scale = {x: s, y: s, z: s};
 
     //load from glb file
