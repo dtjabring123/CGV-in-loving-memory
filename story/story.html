@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//fonts.googleapis.com/css?family=Macondo&display=swap" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet" type="text/css">
+  <title>In Loving Memory...</title>
+  <link href="story.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <button id=musicButton style="z-index:4;font-size:20px;cursor:pointer;position:absolute"
+    onclick="startMusic()">Music off</button>
+  <div id="scroller">
+    <div id="content">
+      <p style="text-align:center">For years before your birth, your grandfather was an ambitious archeologist,
+        travelling through strange and dangerous landscapes to collect mystical and mysterious artifacts.</p>
+      <p style="text-align:center">Before he could share his knowledge and experience with you, he died searching for
+        the final items to complete his collection: 3 gems said to have magical properties. </p>
+      <p style="text-align:center">It is your duty to embark on a journey to find these gems and honour your
+        grandfather!</p>
+      <p style="text-align:center">You will have to travel through a wild and mysterious jungle, the frosty tundra, and
+        a desolate pyramid.</p>
+      <p style="text-align:center">Explore with caution, traveller, for the strange environments may not be the only
+        challenges you face...</p>
+    </div>
+  </div>
+
+  <script src="story.js"></script>
+
+  <!-- functions for adding music on musicButton click -->
+  <script>
+
+    var myMusic;
+    var musicOn = false;
+
+    function startMusic() {
+
+      if (musicOn == false) {
+        musicOn = true;
+        myMusic = new sound('../sounds/Winter-Fantasy.mp3');
+        myMusic.play();
+        document.getElementById("musicButton").innerHTML = "Music on"
+      }
+      else if (musicOn == true) {
+        musicOn = false;
+        myMusic.stop();
+        document.getElementById("musicButton").innerHTML = "Music off"
+      }
+    }
+
+    function sound(src) {
+      this.sound = document.createElement("audio");
+      this.sound.src = src;
+      this.sound.setAttribute("preload", "auto");
+      this.sound.setAttribute("controls", "none");
+      this.sound.style.display = "none";
+      document.body.appendChild(this.sound);
+      this.play = function () {
+        this.sound.play();
+      }
+      this.stop = function () {
+        this.sound.pause();
+      }
+    }
+  </script>
+</body>
+
+<head>
+  <!-- going to the menu page. -->
+  <meta http-equiv="refresh" content="30 url = ../menu/menu.html">
+</head>
+
+</html>

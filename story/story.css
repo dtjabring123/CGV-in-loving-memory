@@ -1,0 +1,110 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+body {
+	margin: 0;
+	background-color: #000;
+	overflow: hidden !important;
+}
+
+body::after {
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 80vh;
+	background: linear-gradient(
+		to bottom,
+		rgba(10, 0, 0, 1) 61%,
+		rgba(10, 0, 0, 0.54) 79%,
+		rgba(10, 0, 0, 0) 100%
+	);
+	z-index: 1;
+}
+button {
+    width: 140px;
+    height: 70px;
+    line-height: 50px;
+    font-weight: bold;
+    padding: 10 40px;
+    background:  #53cacf;
+    border-radius : 4px;
+    border-color: #3f9c9f;
+    font-family: 'Macondo', cursive;
+    font-size: 40px;
+    color         : #111;
+    box-shadow    : 0 5px #28696b;
+  }
+  
+  button:hover {
+    background: #3f9c9f;
+  }
+.stars {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	background-color: rgb(255, 255, 255);
+	z-index: 2;
+}
+#scroller {
+	font-family: sans-serif;
+	font-weight: bold;
+	font-size: 350%;
+	text-align: justify;
+	overflow: hidden;
+	height: 50em;
+	width: 20em;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -10em;
+	z-index: 0;
+	transform: perspective(350px) rotateX(15deg);
+	transform-origin: 50% 100%;
+}
+
+#scroller::after {
+	position: absolute;
+	content: "";
+	bottom: 60%;
+	left: 0;
+	right: 0;
+	top: 0;
+}
+
+#content {
+	position: absolute;
+	top: 100%;
+	animation: scoller 100s linear 1s;
+}
+
+@keyframes scoller {
+	0% {
+		top: 100%;
+	}
+	100% {
+		top: -100%;
+	}
+}
+
+
+
+p {
+	color: #53cacf;
+	font-family: 'Macondo', cursive;
+}
+
+
+
+#title,
+#subtitle {
+	text-align: center;
+	line-height: 1.5rem;
+}
+
+#subtitle {
+	text-transform: uppercase;
+	font-size: 3.5rem;
+}
+

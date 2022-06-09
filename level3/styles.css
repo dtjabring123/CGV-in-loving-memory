@@ -1,0 +1,133 @@
+body{
+    
+    margin: 0px;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.timerSec{
+    position:'absolute';
+    color:'white';
+    top:'0';
+    width :'20%';
+    float:center;
+    font-size:2em;
+}
+
+.responsive{
+width: 80%;
+height: auto;
+}
+
+  .overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgba(18, 68, 41, 0.9);
+    overflow-x: hidden;
+    /* transition: 0.5s; */
+  }
+  
+  .overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    /* color: #818181; */
+    color: rgb(144,238,144);
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+    }
+  }
+
+  button:hover {
+    background: #154f30;
+  }
+
+
+    p{
+
+        font-family: 'Macondo';
+        z-index     : 2;
+        top:0;
+        font-size   : 18px;
+        color       : #e4d9c9;
+        width       : 100%;
+        text-align  : center;
+
+
+    }
+
+    h1 {
+      font-family: 'Macondo', cursive;
+      font-size: 30px;
+      color  : #f1f1f1;
+      font-weight: bold;
+      position: relative;
+      z-index     : 1;
+      width: 100%;
+      text-align  : center;
+      text-shadow:20p 20px#0c2d2c ;
+    
+      }
+
+      .progress-bar-container{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index:6 ;
+    }
+    
+    #progress-bar{
+        width: 30%;
+        margin-top: 0.5%;
+        height: 2%;
+        background-color: blue;
+        z-index: 6;
+    }
+    
+    label{
+        font-family: 'Macondo', cursive;
+        color: white;
+        font: 2rem;
+        font-size: medium;
+        z-index: 6;
+    }
