@@ -1,0 +1,11 @@
+Model Information:
+* title:	Treasure chest
+* source:	https://sketchfab.com/3d-models/treasure-chest-8bdf3dee4f344e36839c4c1c7e1dcd2b
+* author:	JSlyin (https://sketchfab.com/popovich.stanislav.01)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Treasure chest" (https://sketchfab.com/3d-models/treasure-chest-8bdf3dee4f344e36839c4c1c7e1dcd2b) by JSlyin (https://sketchfab.com/popovich.stanislav.01) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
