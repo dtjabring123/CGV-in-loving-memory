@@ -33,7 +33,7 @@ body.appendChild(menuButton);
 
 // 3. Add transition to main menu
 menuButton.addEventListener ("click", function() {
-location.href='../menu.html'
+location.href='../menu/menu.html'
     
 });
 
