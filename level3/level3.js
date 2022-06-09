@@ -765,7 +765,7 @@ function createWalls(){
 /**create ball*/
 function createBall(){
     //ball dimensions
-    let pos = {x: 0, y: 4, z: -5};
+    let pos = {x: 0, y: 10, z: 10};
     let radius = 2;
     let quat = {x: 0, y: 0, z: 0, w: 1};
     let mass = 1;
@@ -815,7 +815,7 @@ function createBall(){
 function loadCharacter(){
     //character dimesnions
     let s = 5; 
-    let pos = {x: 0, y: 1, z: -5};
+    let pos = {x: 0, y: 10, z: 10};
     let scale = {x: s, y: s, z: s};
 
     //load from glb file
