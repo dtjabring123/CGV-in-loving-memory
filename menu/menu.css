@@ -2,9 +2,8 @@ body{
     
   margin: 0px;
   padding: 0;
-  overflow: hidden;
   font-family: 'Montserrat', sans-serif;
-
+  overflow: hidden;
 }
 
 #world{
@@ -14,13 +13,13 @@ body{
   height:100%;
   overflow:hidden;
 }
+
   button {
     width: 200px;
     height: 70px;
     line-height: 50px;
     font-weight: bold;
     padding: 10 40px;
-    /* background: #124429;*/
     z-index: 3;
     background: #4e284f;
     border-radius : 4px;
@@ -31,7 +30,6 @@ body{
     box-shadow    : 0 5px #391930 ;
   }
   button:hover {
-   /* background: #154f30; */
    background: #391930;
   }
 
@@ -39,26 +37,23 @@ body{
  h1 {
   font-family: 'Macondo', cursive;
   font-size: 100px;
-  /*color  : #124429;*/
   color:#4e284f;
   font-weight: bold;
   position: absolute;
   z-index     : 3;
   width: 100%;
   text-align  : center;
-  
   text-shadow:5px 5px #391930 ;
 
   }
 
  h2{
   font-family: 'Macondo', cursive;
-  font-size: 100px;
-  /*color  : #124429;*/
-  color:#4e284f;
+  font-size: 60px;
+  color:#53cacf;
   font-weight: bold;
   position: absolute;
-  z-index     : 3;
+  z-index     : 0;
   width: 100%;
   text-align  : center;
   align-self: center;
