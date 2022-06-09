@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://math.hws.edu/eck/cs424/f15/windmill/windmill.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>tomb</title>
+<script src="three.min.js"></script>
+<script src="OrbitControls.js.download"></script>
+<script>
+
+"use strict";
+
+var canvas, renderer, scene, camera; // Standard three.js requirements.
+const tombWallTexture = new THREE.MeshLambertMaterial({color: "rgb(237,194,76)"});
+const tombWall = new THREE.BoxBufferGeometry(1,1,1);
+const t = 0.5;
+
+var controls;  // An OrbitControls object that is used to implement
+               // rotation of the scene using the mouse.  (It actually rotates
+               // the camera around the scene.)
+
+/**
+ *  The render function draws the scene.
+ */
+function render() {
+    renderer.render(scene, camera);
+}
+
+function createK2(){
+    var k2 = new THREE.Object3D();
+    //room dimesions
+    var l = 2.5;
+    var h = 2.5;
+    var w = 10;
+
+    //room walls,floor and ceiling
+    const shell = new THREE.Shape();
+    shell.moveTo(t, h+t);
+    shell.lineTo(-l-t, h+t);
+    shell.lineTo(-l-t, -t);
+    shell.lineTo(t, -t);
+    shell.lineTo(t, h+t);
+
+    //room inner
+    const room = new THREE.Shape();
+    room.moveTo(0, h);
+    room.lineTo(-l, h);
+    room.lineTo(-l, 0);
+    room.lineTo(0, 0);
+    room.lineTo(0, h);
+    shell.holes.push(room);
+
+    //extrude room into third dimension
+    const extrudeSettings = {amount: w*2,bevelEnabled: false}
+    const geometry = new THREE.ExtrudeBufferGeometry(shell, extrudeSettings);
+    const pipe = new THREE.Mesh(geometry,tombWallTexture);
+    k2.add(pipe);
+
+    //add single end cap
+    var wall = new createWall();
+    wall.scale.set(l+t,h+t,t);
+    wall.position.set(-l/2,h/2,t/2)
+    k2.add(wall);
+    return k2;
+}
+
+//random wall with a hole in it for future reference
+function holyWall(){
+    const shape = new THREE.Shape();
+    shape.moveTo(2, 2);
+    shape.lineTo(-2, 2);
+    shape.lineTo(-2, -2);
+    shape.lineTo(2, -2);
+    shape.lineTo(2, 2);
+
+    const hole = new THREE.Path();
+    hole.moveTo(1,1);
+    hole.lineTo(-1,1);
+    hole.lineTo(-1,-1);
+    hole.lineTo(1,-1);
+    hole.lineTo(1,1);
+    shape.holes.push(hole);
+
+    const geometry = new THREE.ExtrudeBufferGeometry(shape, {
+        amount: 0.5,
+		bevelEnabled: false
+	} );
+    const material = new THREE.MeshLambertMaterial( { color: 0xffffff } );
+
+  const mesh = new THREE.Mesh( geometry, material );
+	return mesh;
+}
+
+//just a wall
+function createWall(){
+    var wall = new THREE.Mesh(tombWall,tombWallTexture);
+    return wall;
+}
+
+/**
+ * This function is called by the init() method to create the world. 
+ */
+function createWorld() {
+    
+    renderer.setClearColor("black"); // Background color for scene.
+    scene = new THREE.Scene();
+    
+    // ------------------- Make a camera with viewpoint light ----------------------
+    
+    camera = new THREE.PerspectiveCamera(45, canvas.width/canvas.height, 1, 1000);
+    camera.position.set(10,10,10)
+    camera.lookAt(0,0,0)
+    var light;  // A light shining from the direction of the camera; moves with the camera.
+    light = new THREE.DirectionalLight();
+    light.position.set(0,0,1);
+    camera.add(light);
+    scene.add(camera);
+    
+    //------------------- Create the scene's visible objects ---------------------- 
+    var marker = new THREE.Mesh(
+        new THREE.CylinderGeometry(0,0.5,1,16,3),
+        new THREE.MeshPhongMaterial({
+            color: 0x55AAFF,
+            specular: 0x111111,
+            shininess: 8
+        })
+    );
+    scene.add(marker);
+
+    var wall = new createWall();
+    scene.add(wall);
+
+    var tomb = new THREE.Object3D();
+    var k2 = new createK2();
+    tomb.add(k2);
+    scene.add(tomb);
+    
+} // end function createWorld()
+
+/* ---------------------------- MOUSE AND ANIMATION SUPPORT ------------------
+
+/**
+ *  This page uses THREE.OrbitControls to let the user use the mouse to rotate
+ *  the view.  OrbitControls are designed to be used during an animation, where
+ *  the rotation is updated as part of preparing for the next frame.  The scene
+ *  is not automatically updated just because the user drags the mouse.  To get
+ *  the rotation to work without animation, I add another mouse listener to the
+ *  canvas, just to call the render() function when the user drags the mouse.
+ *  The same thing holds for touch events -- I call render for any mouse move
+ *  event with one touch.
+ */
+function installOrbitControls() {
+    controls = new THREE.OrbitControls(camera,canvas);
+    controls.noPan = true; 
+    controls.noZoom = true;
+    controls.staticMoving = true;
+    function move() {
+        controls.update();
+        render();
+    }
+    function down() {
+        document.addEventListener("mousemove", move, false);
+    }
+    function up() {
+        document.removeEventListener("mousemove", move, false);
+    }
+    function touch(event) {
+        if (event.touches.length == 1) {
+            move();
+        }
+    }
+    canvas.addEventListener("mousedown", down, false);
+    canvas.addEventListener("touchmove", touch, false);
+}
+
+const resize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    renderer.setSize( window.innerWidth, window.innerHeight );
+}
+/*----------------------------- INITIALIZATION ----------------------------------------
+
+/**
+ *  This function is called by the onload event so it will run after the
+ *  page has loaded.  It creates the renderer, canvas, and scene objects,
+ *  calls createWorld() to add objects to the scene, and renders the
+ *  initial view of the scene.  If an error occurs, it is reported.
+ */
+function init() {
+    try {
+        canvas = document.getElementById("glcanvas");
+        renderer = new THREE.WebGLRenderer({
+            canvas: canvas,
+            antialias: true,
+            alpha: false
+        });
+    }
+    catch (e) {
+        document.getElementById("message").innerHTML="<b>Sorry, an error occurred:<br>" +
+                e + "</b>";
+        return;
+    }
+    resize()
+    window.addEventListener('resize', resize)
+    createWorld();
+    installOrbitControls();
+    render();
+}
+
+</script>
+</head>
+<body onload="init()" data-new-gr-c-s-check-loaded="14.1060.0" data-gr-ext-installed="">
+
+<canvas id="glcanvas"></canvas>
+
+</body>
