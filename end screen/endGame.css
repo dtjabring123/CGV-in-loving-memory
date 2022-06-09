@@ -1,0 +1,55 @@
+
+  body{
+    overflow: hidden;
+  }
+  button {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 70px;
+    line-height: 60px;
+    font-weight: bold;
+    padding: 0 0px;
+    background: #788694;
+    border-radius : 4px;
+    border-color: #565F70;
+    font-family: 'Macondo', cursive;
+    color         : #8FBFA8;
+    box-shadow    : 0 5px #565F70
+  }
+  button:hover {
+    background: #565F70
+  }
+  
+ h1 {
+  font-family: 'Macondo', cursive;
+  font-size: 100px;
+  color  : #788694;
+  font-weight: bold;
+  position: absolute;
+  z-index     : 3;
+  width: 100%;
+  text-align  : center;
+  }
+
+  caption{
+    font-family: 'Macondo', cursive;
+    z-index     : 3;
+    position    : absolute;
+    font-size   : 18px;
+    bottom      : 0;
+    color       : #8fbfa8;
+    width       : 100%;
+    padding     : 30px 0 30px 0;
+    text-align  : center;
+    background  : #788694;
+    line-height : 26px;
+
+  }
+
+
+  
