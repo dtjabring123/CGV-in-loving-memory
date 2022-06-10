@@ -15,7 +15,6 @@ var firstPerson = false, waterRising = false;
 let cone;
 
 //timer and pausing variables
-
 var clock1 = new THREE.Clock();
 var countdown = 30;
 var storeCount = 30;
@@ -27,7 +26,7 @@ const STATE = { DISABLE_DEACTIVATION : 4 }
 //initialise ammo
 Ammo().then(start)
 
-/**start/init function*/
+/** start function */
 function start (){
     //array of bodies
     tmpTrans = new Ammo.btTransform();
@@ -64,7 +63,7 @@ function start (){
     renderFrame();
 }
 
-/**set up worlds physics*/
+/** sets up worlds physics */
 function setupPhysicsWorld(){
     let collisionConfiguration  = new Ammo.btDefaultCollisionConfiguration(),
         dispatcher              = new Ammo.btCollisionDispatcher(collisionConfiguration),
@@ -75,7 +74,7 @@ function setupPhysicsWorld(){
     physicsWorld.setGravity(new Ammo.btVector3(0, -10, 0));
 }
 
-/**set up worlds graphics*/
+/** set up worlds graphics */
 function setupGraphics(){
     //create clock for timing
     clock = new THREE.Clock();
@@ -153,7 +152,7 @@ function setupGraphics(){
 
 }
 
-/**render frame*/
+/** render frame */
 function renderFrame(){
     deltaTime = clock.getDelta();
     
@@ -178,14 +177,14 @@ function renderFrame(){
     requestAnimationFrame( renderFrame );
 }
 
-/**setup event handlers*/
+/** setup event handlers */
 function setupEventHandlers(){
     window.addEventListener( 'resize', onWindowResize, false );
     window.addEventListener( 'keydown', handleKeyDown, false);
     window.addEventListener( 'keyup', handleKeyUp, false);
 }
 
-/**resize window*/
+/** resize window */
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -193,7 +192,10 @@ function onWindowResize() {
     labelRenderer.setSize( window.innerWidth, window.innerHeight );
 }
 
-/**handle keypresses*/
+/** 
+ * handle keypresses
+ * @param {*} event - event is sent, keycode extracted from event
+*/
 function handleKeyDown(event){
     let keyCode = event.keyCode;
     switch(keyCode){
@@ -222,7 +224,10 @@ function handleKeyDown(event){
     }
 }
 
-/**handle keypresses*/
+/** 
+ * handle keyrelease
+ * @param {*} event - event is sent, keycode extracted from event
+*/
 function handleKeyUp(event){
     let keyCode = event.keyCode;
     switch(keyCode){
@@ -241,7 +246,7 @@ function handleKeyUp(event){
     }
 } 
 
-/**add water*/
+/**add water to scene*/
 function addWater(){
     //add plan geo
     const waterGeo = new THREE.PlaneGeometry(1, 1);
@@ -258,13 +263,13 @@ function addWater(){
     scene.add(water);  
 }
 
-/**rise water*/
+/**increase water level*/
 function riseWater(){
     let y = water.position.y+0.01;
     water.position.set(0,y,0);
 }
 
-/**add other html stuff*/
+/**add divs for timer and pause menu*/
 function setupHtml(){
     // adding timer stuff to the screen. Note that this works in conjunction with main.css code
     //inspired by: https://github.com/drnoir/animated-Three-js-Landing-page-template-with-counter
@@ -323,7 +328,13 @@ function setupPopUp(){
     scene.add(popupMessage);
 }
 
-/**add popup messages*/
+/** 
+ * add popup message
+ * @param {string} message - the message to be dipalyed by the popup
+ * @param {Int} x - x position for popup to be displayed at
+ * @param {Int} y - y position for popup to be displayed at
+ * @param {Int} z - z position for popup to be displayed at
+*/
 function addPopUp(message,x,y,z){
     scene.remove(popupMessage);
     theMessage = document.createElement('div');
@@ -335,7 +346,7 @@ function addPopUp(message,x,y,z){
     scene.add(popupMessage);
 }
 
-/**create diamond*/
+/**create diamond and add to scene*/
 function createDiamond(){
     //diamond dimensions
     let pos = {x: -5, y: 3, z: 0};
@@ -383,7 +394,7 @@ function createDiamond(){
     scene.add(cone);
 }
 
-/**create world base*/
+/**create floor and add to scene*/
 function createFloor(){
     //world base dimensions
     let pos = {x: 0, y: 0, z: 0};
@@ -428,7 +439,7 @@ function createFloor(){
     body.threeObject = blockPlane;
 }
 
-/**create world base*/
+/**create ceiling and add to scene*/
 function createCeiling(){
     //world base dimensions
     let pos = {x: 0, y: 25, z: 0};
@@ -451,7 +462,7 @@ function createCeiling(){
     scene.add(blockPlane);
 }
 
-/**create landing*/
+/**create landing under sarcophagus and add to scene*/
 function createLanding(){
    //sarcophagus landing dimensions
    let pos = {x: -24, y: 1, z: 21};
@@ -514,7 +525,7 @@ function lm(){
     return loadingManager
 }
 
-/**create sarcophagus*/
+/**create sarcophagus and add to scene*/
 function createSarcophagus(){
     //sarcophagus dimensions
     let pos = {x: -24, y: 1, z: 21};
@@ -584,7 +595,7 @@ function createSarcophagus(){
     body.threeObject = sarcophagus;
 }
 
-/**create landing*/
+/**create stairs and add to scene*/
 function createStairs(){
     //landing dimensions
     let pos = {x: 0, y: 0, z: 0};
@@ -640,7 +651,7 @@ function createStairs(){
     scene.add(stairs);
 }
 
-/**create torches*/
+/**create torches and add to scene*/
 function createTorches(){
     //num torches
     let n = 8;
@@ -654,7 +665,12 @@ function createTorches(){
     scene.add(torches);
 }
 
-/**ad individual torches*/
+/**
+ * make indivdual torch and add to torch object
+ * @param {Int} x - x position for torch to be placed at
+ * @param {Int} y - y position for torch to be placed at
+ * @param {Int} z - z rotation for torch to be placed at
+*/
 function getTorch(x,z,r){
     let scale = {x:6,y:6,z:6};
     //load from glb file
@@ -703,7 +719,7 @@ var amaze = [
     [1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]];    
 
-/**create maze walls*/
+/**create maze walls and add to scene*/
 function createWalls(){
     //wall dimensions
     let s = 5;
@@ -762,7 +778,7 @@ function createWalls(){
     scene.add(maze);
 }
 
-/**create ball*/
+/**create ball and add to scene*/
 function createBall(){
     //ball dimensions
     let pos = {x: 0, y: 10, z: 10};
@@ -811,7 +827,7 @@ function createBall(){
     body.threeObject = ball;
 }
 
-/**create dude*/
+/**create character and add to scene*/
 function loadCharacter(){
     //character dimesnions
     let s = 5; 
@@ -857,7 +873,10 @@ function loadCharacter(){
     });
 }
 
-/**move character*/
+/**
+ * update character position
+ * @param {Int} deltaTime - time change passed for updating physics
+*/
 function moveCharacter( deltaTime ){
     if(model == null||animationsMap == null||mixer == null){
         return
@@ -916,7 +935,7 @@ function moveCharacter( deltaTime ){
     }   
 }
 
-/**update camera*/
+/**update camera and cone graphics*/
 function updateGraphics(){
     if(controls == null||model == null){
         return;
@@ -952,7 +971,7 @@ function updateGraphics(){
     cone.rotation.z += 0.02;
 }
 
-/**calculate directional offset*/
+/**calculate directional offset of model*/
 function directionsOffset(){
     var directionOffset = 0; //w
     if (moveDirection.forward == 1) {
@@ -983,7 +1002,7 @@ function directionsOffset(){
     return directionOffset;
 }
 
-/**contact test*/
+/**set up contact test*/
 function setupContactResultCallback(){
     //create callabck
     cbContactResult = new Ammo.ConcreteContactResultCallback();
@@ -1024,7 +1043,7 @@ function setupContactResultCallback(){
 
 }
 
-/**pair contact test*/
+/**set up pair contact test*/
 function setupContactPairResultCallback(){
     //new callback
     cbContactPairResult = new Ammo.ConcreteContactResultCallback();
@@ -1042,7 +1061,7 @@ function setupContactPairResultCallback(){
 
 }
 
-/**interact with things in the scene*/
+/**interact with objects in the scene*/
 function interact(){
     //default contact is false
     cbContactPairResult.hasContact = false;
@@ -1058,12 +1077,15 @@ function interact(){
         waterRising = true;
 }
 
-/**check for contact*/
+/**check for contact between objects*/
 function checkContact(){
     physicsWorld.contactTest( ballObject.userData.physicsBody , cbContactResult );
 }
 
-/**update physics*/
+/**
+ * update world physics
+ * @param {Int} deltaTime - time change passed for updating physics
+*/
 function updatePhysics( deltaTime ){
     // step world
     physicsWorld.stepSimulation( deltaTime, 10 );
@@ -1104,7 +1126,7 @@ function checkWinLose(){
 
 }
 
-/**star and control maze timer */
+/**start and control maze timer */
 function startTimer() { //controls the maze timer
 
     //inspired by: https://github.com/drnoir/animated-Three-js-Landing-page-template-with-counter
